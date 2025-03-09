@@ -10,7 +10,7 @@ import { useState } from "react";
             const [currentStudent ,setCurrentStudent] = useState(null);
             const [currentRollnumber,setCurrentRollNubmer]=useState("");
             const [currentStudentHistory,setCurrentStudentHistory] =useState([]);
-
+            const [currentTime, setCurrentTime] = useState(new Date());
             const handleReportAction = async (action) => {
               if (!scanner.trim()) {
                   alert("Please enter or scan a roll number.");
@@ -64,12 +64,22 @@ import { useState } from "react";
           }
           // console.log(currentStudentHistory);
           
-          const current =new Date();
-          const hours = current.getHours();
-          const minutes = current.getMinutes();
-          if (((hours < 12) || (hours === 12 && minutes < 50) )&& scanner.length === 10) {
-                handleReportAction("IN");
-            }
+          
+
+          useEffect(() => {
+            const interval = setInterval(() => {
+              setCurrentTime(new Date());
+            }, 1000); // Updates every second
+          
+            return () => clearInterval(interval); // Cleanup on unmount
+          }, []);
+          
+          const formattedTime = currentTime.toLocaleTimeString("en-IN", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hourCycle: "h23", // Ensures 24-hour format
+          });
 
 
           
@@ -79,6 +89,7 @@ import { useState } from "react";
 <>
 <div className="d-flex flex-column justify-content-between vh-100">
         <Navbar></Navbar>
+        <div className="mt-5 me-5 text-end" style={{marginTop:"190", fontSize: "48px", fontWeight: "bold" }}>{formattedTime}</div>
         <div className="d-flex flex-column  align-items-center shadow p-5 m-auto border rounded-5">
             <div className=""> <label htmlFor="" className="m-2">Roll Number : </label>
             <input type="text" placeholder="Enter the rollnumber.." className="m-2"
