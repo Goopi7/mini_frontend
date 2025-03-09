@@ -25,13 +25,13 @@ import { useState } from "react";
                   );
 
                 console.log(response.data);
-                  alert(
-                      `Roll Number ${scanner} marked as ${action} successfully! 
-                      Late: ${response.data.lateEntry} min, 
-                      Early Exit: ${response.data.earlyExit} min`
-                  );
+                  // alert(
+                  //     `Roll Number ${scanner} marked as ${action} successfully! 
+                  //     Late: ${response.data.lateEntry} min, 
+                  //     Early Exit: ${response.data.earlyExit} min`
+                  // );
                   setCurrentStudent(response.data);
-                  console.log(response.data);
+                  // console.log(response.data);
                   setCurrentRollNubmer(scanner);
                   // console.log(currentStudent.name);
 
@@ -62,7 +62,7 @@ import { useState } from "react";
               .catch(error => console.error("Error fetching reports:", error)); 
             
           }
-          console.log(currentStudentHistory);
+          // console.log(currentStudentHistory);
           
           const current =new Date();
           const hours = current.getHours();
